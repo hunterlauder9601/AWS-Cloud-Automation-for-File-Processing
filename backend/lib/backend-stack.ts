@@ -226,10 +226,10 @@ export class BackendStack extends Stack {
 
     //API gateway
 
-    const apiGateway = new apigateway.RestApi(this, "MyApi", {
+    const apiGateway = new apigateway.RestApi(this, "apiGateway", {
       defaultCorsPreflightOptions: {
         allowOrigins: apigateway.Cors.ALL_ORIGINS,
-        allowMethods: apigateway.Cors.ALL_METHODS,
+        allowMethods: ["OPTIONS", "GET", "POST"],
       },
     });
 

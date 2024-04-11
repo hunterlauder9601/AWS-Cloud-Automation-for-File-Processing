@@ -3,6 +3,7 @@ import { ChangeEvent, FormEvent, useRef, useState } from "react";
 function App() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [textInput, setTextInput] = useState<string | null>(null);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -17,7 +18,7 @@ function App() {
         }
 
         const filename = encodeURIComponent(file.name);
-        const url = `https://4suvu2g6q0.execute-api.us-east-1.amazonaws.com/prod/presigned-url?filename=${filename}`;
+        const url = `${apiUrl}presigned-url?filename=${filename}`;
 
         const presignedUrlResponse = await fetch(url, {
           method: "GET",
@@ -46,7 +47,7 @@ function App() {
 
         // save details to DDB
         const saveDetailsResponse = await fetch(
-          "https://4suvu2g6q0.execute-api.us-east-1.amazonaws.com/prod/save-details",
+          `${apiUrl}save-details`,
           {
             method: "POST",
             headers: {
