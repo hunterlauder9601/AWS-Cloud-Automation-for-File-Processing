@@ -142,7 +142,7 @@ export class BackendStack extends Stack {
         code: lambda.Code.fromAsset("lambda"),
         handler: "processNewItems.main",
         role: processNewItemsLambdaRole,
-        timeout: Duration.seconds(120),
+        timeout: Duration.minutes(5),
         environment: {
           BUCKET_NAME: fileUploadBucket.bucketName,
           IAM_ARN: ec2InstanceProfile.attrArn,
