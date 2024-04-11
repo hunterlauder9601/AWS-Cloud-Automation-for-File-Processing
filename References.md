@@ -9,3 +9,4 @@ https://medium.com/@aayappareddy/aws-cdk-and-how-to-deploy-a-node-js-lambda-func
 https://dynobase.dev/dynamodb-triggers/
 https://docs.aws.amazon.com/cdk/api/v2/
 https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/
+https://aws-cdk.com/deploying-a-static-website-using-s3-and-cloudfront
