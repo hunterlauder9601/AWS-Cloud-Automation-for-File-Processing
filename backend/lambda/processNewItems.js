@@ -14,18 +14,46 @@ const ssmClient = new SSMClient({ region: process.env.AWS_REGION });
 
 const waitForEC2InstanceRunning = async (instanceId) => {
   let instanceState = null;
+  let instanceNotFoundRetries = 0;
+  const maxInstanceNotFoundRetries = 5;
+  let retryDelay = 5000;
+
   while (instanceState !== "running") {
-    const { Reservations } = await ec2Client.send(
-      new DescribeInstancesCommand({
-        InstanceIds: [instanceId],
-      })
-    );
+    try {
+      const { Reservations } = await ec2Client.send(
+        new DescribeInstancesCommand({
+          InstanceIds: [instanceId],
+        })
+      );
 
-    const instance = Reservations[0]?.Instances[0];
-    instanceState = instance.State.Name;
+      const instance = Reservations[0]?.Instances[0];
+      instanceState = instance.State.Name;
 
-    if (instanceState !== "running") {
-      await new Promise((resolve) => setTimeout(resolve, 10000));
+      if (instanceState === "terminated") {
+        throw new Error(`Instance ${instanceId} is terminated.`);
+      }
+
+      if (instanceState !== "running") {
+        await new Promise((resolve) => setTimeout(resolve, 10000));
+      }
+    } catch (error) {
+      if (error.name === "InvalidInstanceID.NotFound") {
+        instanceNotFoundRetries++;
+        console.error(
+          `Instance ${instanceId} not found. Retry attempt ${instanceNotFoundRetries}.`
+        );
+
+        if (instanceNotFoundRetries >= maxInstanceNotFoundRetries) {
+          throw new Error(
+            `Instance ${instanceId} not found after ${maxInstanceNotFoundRetries} retries.`
+          );
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, retryDelay));
+        retryDelay *= 2;
+      } else {
+        throw error;
+      }
     }
   }
 };
