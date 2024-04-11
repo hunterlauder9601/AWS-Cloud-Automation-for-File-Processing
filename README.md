@@ -13,6 +13,9 @@
 * npm install
 * cd ../backend
 * npm install
+* cd lambda
+* npm install
+* cd ..
 * cdk bootstrap
 * cdk deploy
 * You should now see an output containing the API gateway URL, copy the whole URL (including trailing slash)
@@ -22,11 +25,7 @@
 * npm run build
 * cd ../frontend_deploy
 * npm install
-* cdk bootstrap
 * cdk deploy
 * In your browser, navigate to the URL outputted by the terminal
   * e.g. FrontendDeployStack.ReactAppURL = deg1lwmoiqsmk.cloudfront.net
 * Enjoy demoing the app!
-
-
-
