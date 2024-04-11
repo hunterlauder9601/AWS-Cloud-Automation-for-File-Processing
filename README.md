@@ -12,17 +12,20 @@
 * cd react-frontend
 * npm install
 * cd ../backend
+* npm install
 * cdk bootstrap
 * cdk deploy
-* You should now see an output containing the api gateway url, copy the whole url (including trailing slash)
-e.g. BackendStack.apiGatewayEndpoint8F3C8843 = https://a0eh4yblle.execute-api.us-east-1.amazonaws.com/prod/
+* You should now see an output containing the API gateway URL, copy the whole URL (including trailing slash)
+  * e.g. BackendStack.apiGatewayEndpoint8F3C8843 = https://a0eh4yblle.execute-api.us-east-1.amazonaws.com/prod/
 * cd ../react-frontend
-* Paste the api gateway url in the react-frontend/.env file and save
+* Paste the API gateway URL in the react-frontend/.env file and save
 * npm run build
 * cd ../frontend_deploy
+* npm install
 * cdk bootstrap
 * cdk deploy
-* Navigate to the URL outputted by the terminal
+* In your browser, navigate to the URL outputted by the terminal
+  * e.g. FrontendDeployStack.ReactAppURL = deg1lwmoiqsmk.cloudfront.net
 * Enjoy demoing the app!
 
 
